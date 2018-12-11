@@ -16,11 +16,11 @@
         <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
-                <input type="text" name="username" id="LAY-user-login-username" lay-verify="required|nickname" placeholder="用户名" class="layui-input">
+                <input type="text" name="username" id="LAY-user-login-username" lay-verify="required|nickname" placeholder="用户名" value="admin" class="layui-input">
             </div>
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
-                <input type="password" name="password" id="LAY-user-login-password" lay-verify="required|pass" placeholder="密码" class="layui-input">
+                <input  type="password" name="password" id="LAY-user-login-password" lay-verify="required|pass" placeholder="密码" value="123456" class="layui-input">
             </div>
             <div class="layui-form-item">
                 <div class="layui-row">
@@ -106,10 +106,9 @@
                         ,done: function(res){
                             //请求成功后，写入 access_token
                             layui.data(setter.tableName, {
-                                key: setter.request.tokenName
-                                ,value: res.data.access_token
+                                key: 'token'
+                                ,value: res.data.token
                             });
-
                             //登入成功的提示与跳转
                             layer.msg('登入成功', {
                                 offset: '15px'
