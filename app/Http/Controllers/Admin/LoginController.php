@@ -11,7 +11,7 @@ class LoginController extends BaseController
 {
     public function index()
     {
-        return view('admin.login');
+        return view('admin.login.login');
     }
 
     public function store(LoginRequest $request)

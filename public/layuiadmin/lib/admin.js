@@ -1,14 +1,14 @@
 /** layuiAdmin.std-v1.1.0 LPPL License By http://www.layui.com/admin/ */ ;
 layui.define("view", function (e) {
-    var a = layui.jquery,
+    var $ = layui.jquery,//a
         i = layui.laytpl,
         t = layui.element,
         n = layui.setter,
-        l = layui.view,
+        view = layui.view,//l
         s = layui.device(),
-        r = a(window),
-        o = a("body"),
-        u = a("#" + n.container),
+        r = $(window),
+        o = $("body"),
+        u = $("#" + n.container),
         d = "layui-show",
         c = "layui-hide",
         y = "layui-this",
@@ -24,31 +24,31 @@ layui.define("view", function (e) {
         k = "LAY-system-side-menu",
         P = {
             v: "1.1.0 std",
-            req: l.req,
+            req: view.req,
             sendAuthCode: function (e) {
-                e = a.extend({
+                e =$.extend({
                     seconds: 60,
                     elemPhone: "#LAY_phone",
                     elemVercode: "#LAY_vercode"
                 }, e);
                 var i, t = e.seconds,
-                    n = a(e.elem),
+                    n = $(e.elem),
                     l = function (a) {
                         t--, t < 0 ? (n.removeClass(f).html("获取验证码"), t = e.seconds, clearInterval(i)) : n.addClass(f).html(
                             t + "秒后重获"), a || (i = setInterval(function () {
                             l(!0)
                         }, 1e3))
                     };
-                e.elemPhone = a(e.elemPhone), e.elemVercode = a(e.elemVercode), n.on("click", function () {
+                e.elemPhone = $(e.elemPhone), e.elemVercode = $(e.elemVercode), n.on("click", function () {
                     var i = e.elemPhone,
                         n = i.val();
-                    if (t === e.seconds && !a(this).hasClass(f)) {
+                    if (t === e.seconds && !$(this).hasClass(f)) {
                         if (!/^1\d{10}$/.test(n)) return i.focus(), layer.msg("请输入正确的手机号");
                         if ("object" == typeof e.ajax) {
                             var s = e.ajax.success;
                             delete e.ajax.success
                         }
-                        P.req(a.extend(!0, {
+                        P.req($.extend(!0, {
                             url: "/auth/code",
                             type: "get",
                             data: {
@@ -68,10 +68,10 @@ layui.define("view", function (e) {
                 var e = r.width();
                 return e >= 1200 ? 3 : e >= 992 ? 2 : e >= 768 ? 1 : 0
             },
-            exit: l.exit,
+            exit: view.exit,
             sideFlexible: function (e) {
                 var i = u,
-                    t = a("#" + h),
+                    t = $("#" + h),
                     l = P.screen();
                 "spread" === e ? (t.removeClass(x).addClass(g), l < 2 ? i.addClass(v) : i.removeClass(v), i.removeClass(
                     C)) : (t.removeClass(g).addClass(x), l < 2 ? i.removeClass(C) : i.addClass(C), i.removeClass(v)),
@@ -86,9 +86,9 @@ layui.define("view", function (e) {
             on: function (e, a) {
                 return layui.onevent.call(this, n.MOD_NAME, e, a)
             },
-            popup: l.popup,
+            popup: view.popup,
             popupRight: function (e) {
-                return P.popup.index = layer.open(a.extend({
+                return P.popup.index = layer.open($.extend({
                     type: 1,
                     id: "LAY_adminPopupR",
                     anim: -1,
@@ -123,7 +123,7 @@ layui.define("view", function (e) {
                         ".layui-layout-admin .layui-header .layui-nav .layui-nav-mored{border-color: transparent; border-bottom-color: #fbfbfb;}",
                         ".layui-layout-admin .layui-header .layui-nav .layui-this:after, .layui-layout-admin .layui-header .layui-nav-bar{background-color: #fff; background-color: rgba(255,255,255,.5);}",
                         ".layadmin-pagetabs .layui-tab-title li:after{display: none;}", "{{# } }}"].join("")).render(
-                        e = a.extend({}, t.theme, e)),
+                        e = $.extend({}, t.theme, e)),
                     u = document.getElementById(l);
                 "styleSheet" in s ? (s.setAttribute("type", "text/css"), s.styleSheet.cssText = r) : s.innerHTML = r, s
                     .id = l, u && o[0].removeChild(u), o[0].appendChild(s), o.attr("layadmin-themealias", e.color.alias),
@@ -142,7 +142,7 @@ layui.define("view", function (e) {
             },
             tabsPage: {},
             tabsBody: function (e) {
-                return a(m).find("." + b).eq(e || 0)
+                return $(m).find("." + b).eq(e || 0)
             },
             tabsBodyChange: function (e, a) {
                 a = a || {}, P.tabsBody(e).addClass(d).siblings().removeClass(d), F.rollPage("auto", e), layui.event.call(
@@ -189,7 +189,7 @@ layui.define("view", function (e) {
             },
             refresh: function () {
                 var e = ".layadmin-iframe",
-                    i = a("." + b).length;
+                    i = $("." + b).length;
                 P.tabsPage.index >= i && (P.tabsPage.index = i - 1);
                 var t = P.tabsBody(P.tabsPage.index).find(e);
                 t[0].contentWindow.location.reload(!0)
@@ -213,7 +213,7 @@ layui.define("view", function (e) {
                 P.popupRight({
                     id: "LAY_adminPopupTheme",
                     success: function () {
-                        l(this.id).render("system/theme")
+                        view(this.id).render("system/theme")
                     }
                 })
             },
@@ -252,7 +252,7 @@ layui.define("view", function (e) {
                 P.popupRight({
                     id: "LAY_adminPopupAbout",
                     success: function () {
-                        l(this.id).render("system/about")
+                        view(this.id).render("system/about")
                     }
                 })
             },
@@ -260,7 +260,7 @@ layui.define("view", function (e) {
                 P.popupRight({
                     id: "LAY_adminPopupMore",
                     success: function () {
-                        l(this.id).render("system/more")
+                        view(this.id).render("system/more")
                     }
                 })
             },
@@ -273,7 +273,7 @@ layui.define("view", function (e) {
                 e.hasClass(y) || (e.addClass(y).siblings(".layui-this").removeClass(y), P.initTheme(a))
             },
             rollPage: function (e, i) {
-                var t = a("#LAY_app_tabsheader"),
+                var t = $("#LAY_app_tabsheader"),
                     n = t.children("li"),
                     l = (t.prop("scrollWidth"), t.outerWidth()),
                     s = parseFloat(t.css("left"));
@@ -281,7 +281,7 @@ layui.define("view", function (e) {
                     if (!s && s <= 0) return;
                     var r = -s - l;
                     n.each(function (e, i) {
-                        var n = a(i),
+                        var n = $(i),
                             l = n.position().left;
                         if (l >= r) return t.css("left", -l), !1
                     })
@@ -292,14 +292,14 @@ layui.define("view", function (e) {
                         if (e + r.outerWidth() >= l - s) {
                             var o = e + r.outerWidth() - (l - s);
                             n.each(function (e, i) {
-                                var n = a(i),
+                                var n = $(i),
                                     l = n.position().left;
                                 if (l + s > 0 && l - s > o) return t.css("left", -l), !1
                             })
                         }
                     }
                 }(): n.each(function (e, i) {
-                    var n = a(i),
+                    var n = $(i),
                         r = n.position().left;
                     if (r + n.outerWidth() >= l - s) return t.css("left", -r), !1
                 })
@@ -316,10 +316,10 @@ layui.define("view", function (e) {
             },
             closeOtherTabs: function (e) {
                 var i = "LAY-system-pagetabs-remove";
-                "all" === e ? (a(z + ":gt(0)").remove(), a(m).find("." + b + ":gt(0)").remove(), a(z).eq(0).trigger(
-                    "click")) : (a(z).each(function (e, t) {
-                    e && e != P.tabsPage.index && (a(t).addClass(i), P.tabsBody(e).addClass(i))
-                }), a("." + i).remove())
+                "all" === e ? ($(z + ":gt(0)").remove(), $(m).find("." + b + ":gt(0)").remove(), $(z).eq(0).trigger(
+                    "click")) : ($(z).each(function (e, t) {
+                    e && e != P.tabsPage.index && ($(t).addClass(i), P.tabsBody(e).addClass(i))
+                }), $("." + i).remove())
             },
             closeAllTabs: function () {
                 F.closeOtherTabs("all")
@@ -360,21 +360,21 @@ layui.define("view", function (e) {
                     list: e.children(".layui-nav-child"),
                     a: e.children("*[lay-href]")
                 }
-            }, n = a("#" + k),
+            }, n = $("#" + k),
             l = "layui-nav-itemed",
             s = function (e) {
                 e.each(function (e, n) {
-                    var s = a(n),
+                    var s = $(n),
                         r = t(s),
                         o = r.list.children("dd"),
                         u = i === r.a.attr("lay-href");
                     if (o.each(function (e, n) {
-                        var s = a(n),
+                        var s = $(n),
                             r = t(s),
                             o = r.list.children("dd"),
                             u = i === r.a.attr("lay-href");
                         if (o.each(function (e, n) {
-                            var s = a(n),
+                            var s = $(n),
                                 r = t(s),
                                 o = i === r.a.attr("lay-href");
                             if (o) {
@@ -407,14 +407,14 @@ layui.define("view", function (e) {
         })
     }, z = "#LAY_app_tabsheader>li";
     o.on("click", z, function () {
-        var e = a(this),
+        var e = $(this),
             i = e.index();
         P.tabsPage.type = "tab", P.tabsPage.index = i, A(e)
     }), t.on("tabDelete(" + p + ")", function (e) {
-        var i = a(z + ".layui-this");
+        var i = $(z + ".layui-this");
         e.index && P.tabsBody(e.index).remove(), A(i), P.delResize()
     }), o.on("click", "*[lay-href]", function () {
-        var e = a(this),
+        var e = $(this),
             i = e.attr("lay-href"),
             t = e.attr("lay-text");
         layui.router();
@@ -422,11 +422,11 @@ layui.define("view", function (e) {
         var n = parent === self ? layui : top.layui;
         n.index.openTabsPage(i, t || e.text())
     }), o.on("click", "*[layadmin-event]", function () {
-        var e = a(this),
+        var e = $(this),
             i = e.attr("layadmin-event");
         F[i] && F[i].call(this, e)
     }), o.on("mouseenter", "*[lay-tips]", function () {
-        var e = a(this);
+        var e = $(this);
         if (!e.parent().hasClass("layui-nav-item") || u.hasClass(C)) {
             var i = e.attr("lay-tips"),
                 t = e.attr("lay-offset"),
@@ -441,7 +441,7 @@ layui.define("view", function (e) {
             e.data("index", l)
         }
     }).on("mouseleave", "*[lay-tips]", function () {
-        layer.close(a(this).data("index"))
+        layer.close($(this).data("index"))
     });
     var _ = layui.data.resizeSystem = function () {
         layer.closeAll("tips"), _.lock || setTimeout(function () {
