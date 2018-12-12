@@ -17,7 +17,7 @@
 <script src="{{ asset('layuiadmin/layui/layui.js') }}"></script>
 <script>
     layui.config({
-        base: '../layuiadmin/' //静态资源所在路径
+        base: '/layuiadmin/' //静态资源所在路径
         ,version:true
     }).extend({
         index: 'lib/index' //主入口模块

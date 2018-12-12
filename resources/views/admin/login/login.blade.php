@@ -2,7 +2,7 @@
 <html class="loginHtml">
 <head>
     <meta charset="utf-8">
-    <title>登录--layui后台管理模板 2.0</title>
+    <title>后台管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,20 +18,20 @@
     <div class="login_face"><img src="{{ asset('admin/images/face.jpg') }}" class="userAvatar"></div>
     <div class="layui-form-item input-item">
         <label for="userName">用户名</label>
-        <input type="text" placeholder="请输入用户名" autocomplete="off" id="userName" class="layui-input" lay-verify="required">
+        <input type="text" name="name" placeholder="请输入用户名" autocomplete="off" id="userName" class="layui-input" lay-verify="required">
     </div>
     <div class="layui-form-item input-item">
         <label for="password">密码</label>
-        <input type="password" placeholder="请输入密码" autocomplete="off" id="password" class="layui-input" lay-verify="required">
+        <input type="password" name="password" placeholder="请输入密码" autocomplete="off" id="password" class="layui-input" lay-verify="required">
     </div>
     <div class="">
         <div class="layui-form-item input-item layui-col-xs6" id="imgCode">
             <label for="code">验证码</label>
-            <input type="text" placeholder="请输入验证码" autocomplete="off" id="code" class="layui-input">
+            <input type="text" name="captcha" placeholder="请输入验证码" autocomplete="off" id="code" class="layui-input">
         </div>
         <div class="layui-col-xs6" style="padding-left: 10px;">
             <img id="captcha-img" src="" class="admin-captcha-img">
-            <input type="hidden" id="captcha-key" value="">
+            <input type="hidden" name="key" id="captcha-key" value="">
         </div>
     </div>
     <div class="layui-form-item">
@@ -43,8 +43,80 @@
         {{--<a href="javascript:;" class="seraph icon-sina layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>--}}
     {{--</div>--}}
 </form>
-<script type="text/javascript" src="{{ asset('admin/layui/layui.js') }}"></script>
-<script type="text/javascript" src="{{ asset('admin/js/page/login.js?v=1') }}"></script>
-<script type="text/javascript" src="{{ asset('admin/js/cache.js') }}"></script>
+<script type="text/javascript" src="{{ asset('layuiadmin/layui/layui.js') }}"></script>
+<script>
+    layui.config({
+        base: '/layuiadmin/' //静态资源所在路径
+        ,version:true
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','form','layer','jquery'],function(){
+        let form = layui.form,
+            setter = layui.setter,
+            layer = parent.layer === undefined ? layui.layer : top.layer,
+            $ = layui.jquery;
+        console.log(setter)
+        let getcaptcha=function(){
+            $.get({
+                url:"/admin/captcha/flat"
+            },function (data) {
+                $('#captcha-img').attr('src',data.img);
+                $('#captcha-key').val(data.key);
+            });
+        };
+        getcaptcha();
+        $("#captcha-img").click(function () {
+            getcaptcha();
+        });
+        // $(".loginBody .seraph").click(function(){
+        //     layer.msg("这只是做个样式，至于功能，你见过哪个后台能这样登录的？还是老老实实的找管理员去注册吧",{
+        //         time:5000
+        //     });
+        // });
+        //登录按钮
+        form.on("submit(login)",function(data){
+            let self=this;
+            $(self).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
+            $.post('{{ route('admin.login.store') }}',data.field,function (res,status,xhr) {
+                if(res.code !=0){
+                    layer.msg(res.msg, {icon : 5,time : 1500,anim:6},function () {
+                        $(self).text("登录").attr("disabled",false).removeClass("layui-disabled");
+                    });
+                    getcaptcha();
+                    return false;
+                }
+                layui.data(setter.tableName, {
+                    key: 'token'
+                    ,value: res.data.token
+                });
+                //登入成功的提示与跳转
+                layer.msg('登入成功', {
+                    offset: '15px'
+                    ,icon: 1
+                    ,time: 1000
+                }, function(){
+                    //location.href = '/admin/index'; //后台主页
+                });
+            });
+        });
+
+        //表单输入效果
+        $(".loginBody .input-item").click(function(e){
+            e.stopPropagation();
+            $(this).addClass("layui-input-focus").find(".layui-input").focus();
+        });
+        $(".loginBody .layui-form-item .layui-input").focus(function(){
+            $(this).parent().addClass("layui-input-focus");
+        });
+        $(".loginBody .layui-form-item .layui-input").blur(function(){
+            $(this).parent().removeClass("layui-input-focus");
+            if($(this).val() != ''){
+                $(this).parent().addClass("layui-input-active");
+            }else{
+                $(this).parent().removeClass("layui-input-active");
+            }
+        })
+    });
+</script>
 </body>
 </html>

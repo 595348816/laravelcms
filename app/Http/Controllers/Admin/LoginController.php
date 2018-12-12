@@ -30,7 +30,7 @@ class LoginController extends BaseController
                 'msg'=>'验证码不正确'
             ]);
         }
-        if(!$token=Auth::guard('admin')->attempt(['name'=>$request->username,'password'=>$request->password])){
+        if(!$token=Auth::guard('admin')->attempt(['name'=>$request->name,'password'=>$request->password])){
             return response()->json([
                 'code'=>400,
                 'msg'=>'用户名密码错误'
