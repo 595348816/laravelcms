@@ -13,7 +13,10 @@
     }, i.exit = function (e) {
         layui.data(r.tableName, {key: r.request.tokenName, remove: !0}), e && e()
     }, i.req = function (e) {
-        var n = e.success, a = (e.error, r.request), o = r.response, s = function () {
+        var n = e.success,
+            a = (e.error, r.request),
+            o = r.response,
+            s = function () {
             return r.debug ? "<br><cite>URL：</cite>" + e.url : ""
         };
         return e.data = e.data || {}

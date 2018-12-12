@@ -16,35 +16,12 @@ class LoginController extends BaseController
 
     public function store(LoginRequest $request)
     {
-        $key=$request->key;
-        $captcha=$request->captcha;
-        if(!Cache::tags('admin_captcha')->has($key)){
-            return response()->json([
-                'code'=>422,
-                'msg'=>'验证码已过期,请重新刷新'
-            ]);
+        if(Auth::guard('admin')->attempt(['name'=>$request->name,'password'=>$request->password])){
+            session()->flash('success', '欢迎回来！');
+            return redirect()->route('admin.index.index', [Auth::user()]);
+        }else{
+            session()->flash('danger', '用户名或密码不正确');
+            return redirect()->back();
         }
-        if(!captcha_api_check($captcha,Cache::tags('admin_captcha')->get($key))){
-            return response()->json([
-                'code'=>422,
-                'msg'=>'验证码不正确'
-            ]);
-        }
-        if(!$token=Auth::guard('admin')->attempt(['name'=>$request->name,'password'=>$request->password])){
-            return response()->json([
-                'code'=>400,
-                'msg'=>'用户名密码错误'
-            ]);
-        }
-        Cache::tags('admin_captcha')->forget($key);//清楚验证码缓存
-        return response()->json([
-            'code'=>0,
-            'msg'=>'ok',
-            'data'=>[
-                'token'=>$token,
-                'token_type'=>'Bearer',
-                'expires_in'=>Auth::guard('admin')->factory()->getTTL()*60
-            ]
-        ]);
     }
 }

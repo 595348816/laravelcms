@@ -40,13 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
         'admin'=>[
-            'driver'=>'jwt',
+            'driver'=>'session',
             'provider'=>'system_users'
         ]
     ],

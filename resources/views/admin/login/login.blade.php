@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{{ asset('admin/css/public.css?v=2018') }}" media="all" />
 </head>
 <body class="loginBody">
-<form class="layui-form">
+<form class="layui-form" method="post" action="{{ route('admin.login.store') }}">
+    {{csrf_field()}}
     <div class="login_face"><img src="{{ asset('admin/images/face.jpg') }}" class="userAvatar"></div>
     <div class="layui-form-item input-item">
         <label for="userName">用户名</label>
@@ -30,8 +31,8 @@
             <input type="text" name="captcha" placeholder="请输入验证码" autocomplete="off" id="code" class="layui-input">
         </div>
         <div class="layui-col-xs6" style="padding-left: 10px;">
-            <img id="captcha-img" src="" class="admin-captcha-img">
-            <input type="hidden" name="key" id="captcha-key" value="">
+            <img id="captcha-img" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" alt="验证码" class="admin-captcha-img">
+            {{--<input type="hidden" name="key" id="captcha-key" value="">--}}
         </div>
     </div>
     <div class="layui-form-item">
@@ -55,51 +56,27 @@
             setter = layui.setter,
             layer = parent.layer === undefined ? layui.layer : top.layer,
             $ = layui.jquery;
-        console.log(setter)
-        let getcaptcha=function(){
-            $.get({
-                url:"/admin/captcha/flat"
-            },function (data) {
-                $('#captcha-img').attr('src',data.img);
-                $('#captcha-key').val(data.key);
-            });
-        };
-        getcaptcha();
-        $("#captcha-img").click(function () {
-            getcaptcha();
-        });
-        // $(".loginBody .seraph").click(function(){
-        //     layer.msg("这只是做个样式，至于功能，你见过哪个后台能这样登录的？还是老老实实的找管理员去注册吧",{
-        //         time:5000
-        //     });
-        // });
         //登录按钮
-        form.on("submit(login)",function(data){
-            let self=this;
-            $(self).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
-            $.post('{{ route('admin.login.store') }}',data.field,function (res,status,xhr) {
-                if(res.code !=0){
-                    layer.msg(res.msg, {icon : 5,time : 1500,anim:6},function () {
-                        $(self).text("登录").attr("disabled",false).removeClass("layui-disabled");
-                    });
-                    getcaptcha();
-                    return false;
-                }
-                layui.data(setter.tableName, {
-                    key: 'token'
-                    ,value: res.data
-                });
-                //登入成功的提示与跳转
-                layer.msg('登入成功', {
-                    offset: '15px'
-                    ,icon: 1
-                    ,time: 1000
-                }, function(){
-                    location.href ="{{ route('admin.index.index') }}"; //后台主页
-                });
-            });
-        });
+        // form.on("submit(login)",function(data){
+        //     let self=this;
+        //     $(self).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
+        // });
+        //正确提示
+        //表单提示信息
+        @if(count($errors)>0)
+            @foreach($errors->all() as $error)
+                layer.msg("{{$error}}",{icon:5});
+                @break
+            @endforeach
+        @endif
 
+        @if(session('success'))
+        layer.msg("{{session('success')}}", {
+            offset: '15px'
+            ,icon: 1
+            ,time: 1000
+        });
+        @endif
         //表单输入效果
         $(".loginBody .input-item").click(function(e){
             e.stopPropagation();

@@ -30,28 +30,6 @@
         s = "#LAY_app_body",
         o = "layadmin-layout-tabs",
         $ = layui.$;
-    if(local_storage.token ==undefined){
-        if($('#none_token',window.parent.document).length==0 && window.location.pathname!='/admin/login') {
-            layer.msg('请登录', {
-                id: 'none_token',
-                offset: '15px'
-                , icon: 1
-                , time: 1000
-            }, function () {
-                location.href ='/admin/login';
-            });
-        }
-    }else{
-        if(window.location.pathname=='/admin/login'){
-            layer.msg('您已登录', {
-                offset: '15px'
-                , icon: 1
-                , time: 1000
-            }, function () {
-                location.href ='/admin/index';
-            });
-        }
-    }
     $(window);
     admin.screen() < 2 && admin.sideFlexible(), layui.config({
         base: setter.base + "modules/"

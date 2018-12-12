@@ -13,14 +13,14 @@ class BaseRequest extends FormRequest
         return true;
     }
 
-    protected function failedValidation(Validator $validator)
-    {
-        //获得错误
-        $errors = $validator->errors()->first();
-        //如果有错误就获取到所有错误
-        throw new HttpResponseException(response()->json([
-            'code'=>422,
-            'msg'=>$errors
-        ]));
-    }
+//    protected function failedValidation(Validator $validator)
+//    {
+//        //获得错误
+//        $errors = $validator->errors()->first();
+//        //如果有错误就获取到所有错误
+//        throw new HttpResponseException(response()->json([
+//            'code'=>422,
+//            'msg'=>$errors
+//        ]));
+//    }
 }
