@@ -46,7 +46,7 @@
         </li>
         <li class="layui-nav-item" lay-unselect>
             <a href="javascript:;">
-                <cite>贤心</cite>
+                <cite>{{ \Illuminate\Support\Facades\Auth::guard('admin')->user()->name }}</cite>
             </a>
             <dl class="layui-nav-child">
                 <dd><a lay-href="set/user/info.html">基本资料</a></dd>

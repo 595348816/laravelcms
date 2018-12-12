@@ -18,7 +18,7 @@ class LoginController extends BaseController
     {
         if(Auth::guard('admin')->attempt(['name'=>$request->name,'password'=>$request->password])){
             session()->flash('success', '欢迎回来！');
-            return redirect()->route('admin.index.index', [Auth::user()]);
+            return redirect()->route('admin.index.index');
         }else{
             session()->flash('danger', '用户名或密码不正确');
             return redirect()->back();
