@@ -87,7 +87,7 @@
                 }
                 layui.data(setter.tableName, {
                     key: 'token'
-                    ,value: res.data.token
+                    ,value: res.data
                 });
                 //登入成功的提示与跳转
                 layer.msg('登入成功', {
@@ -95,7 +95,7 @@
                     ,icon: 1
                     ,time: 1000
                 }, function(){
-                    //location.href = '/admin/index'; //后台主页
+                    location.href ="{{ route('admin.index.index') }}"; //后台主页
                 });
             });
         });
