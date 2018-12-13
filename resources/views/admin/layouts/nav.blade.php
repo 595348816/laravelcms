@@ -46,13 +46,13 @@
         </li>
         <li class="layui-nav-item" lay-unselect>
             <a href="javascript:;">
-                <cite>{{ \Illuminate\Support\Facades\Auth::guard('admin')->user()->name }}</cite>
+                {{--<cite>{{ \Illuminate\Support\Facades\Auth::guard('admin')->user()->name }}</cite>--}}
             </a>
             <dl class="layui-nav-child">
                 <dd><a lay-href="set/user/info.html">基本资料</a></dd>
                 <dd><a lay-href="set/user/password.html">修改密码</a></dd>
                 <hr>
-                <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+                <dd style="text-align: center;"><a href="{{ route('admin.login.destroy') }}">退出</a></dd>
             </dl>
         </li>
 

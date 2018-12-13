@@ -10,13 +10,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
-    <link rel="stylesheet" href="{{ asset('admin/layui/css/layui.css') }}" media="all" />
-    <link rel="stylesheet" href="{{ asset('admin/css/public.css?v=2018') }}" media="all" />
+    <link rel="stylesheet" href="{{ asset('resource/admin/layui/css/layui.css') }}" media="all" />
+    <link rel="stylesheet" href="{{ asset('resource/admin/css/public.css?v=2018') }}" media="all" />
 </head>
 <body class="loginBody">
 <form class="layui-form" method="post" action="{{ route('admin.login.store') }}">
     {{csrf_field()}}
-    <div class="login_face"><img src="{{ asset('admin/images/face.jpg') }}" class="userAvatar"></div>
+    <div class="login_face"><img src="{{ asset('resource/admin/images/face.jpg') }}" class="userAvatar"></div>
     <div class="layui-form-item input-item">
         <label for="userName">用户名</label>
         <input type="text" name="name" placeholder="请输入用户名" autocomplete="off" id="userName" class="layui-input" lay-verify="required">

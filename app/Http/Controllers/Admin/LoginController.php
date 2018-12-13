@@ -11,6 +11,9 @@ class LoginController extends BaseController
 {
     public function index()
     {
+        if(Auth::guard('admin')->check()){
+            return redirect()->route('admin.index.index');
+        }
         return view('admin.login.login');
     }
 
@@ -23,5 +26,12 @@ class LoginController extends BaseController
             session()->flash('danger', '用户名或密码不正确');
             return redirect()->back();
         }
+    }
+
+    public function destroy()
+    {
+        Auth::guard('admin')->logout();
+        session()->flash('success', '您已成功退出！');
+        return redirect('admin/login');
     }
 }
