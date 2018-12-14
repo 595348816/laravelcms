@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\SystemUser;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
-    public function index(SystemUser $systemUser)
+    public function index()
     {
-        return view('admin.index.index',compact('systemUser'));
+        $user=Auth::guard('admin')->user();
+        return view('admin.index.index',compact('user'));
     }
 }

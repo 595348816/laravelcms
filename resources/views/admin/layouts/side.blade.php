@@ -7,21 +7,10 @@
 
         <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
             <li data-name="home" class="layui-nav-item layui-nav-itemed">
-                <a href="javascript:;" lay-tips="主页" lay-direction="2">
+                <a href="javascript:;" lay-href="{{ route('admin.home.console') }}" lay-tips="控制台" lay-direction="2">
                     <i class="layui-icon layui-icon-home"></i>
-                    <cite>主页</cite>
+                    <cite>控制台</cite>
                 </a>
-                <dl class="layui-nav-child">
-                    <dd data-name="console" class="layui-this">
-                        <a lay-href="{{ route('admin.home.console') }}">控制台</a>
-                    </dd>
-                    <dd data-name="console">
-                        <a lay-href="home/homepage1.html">主页一</a>
-                    </dd>
-                    <dd data-name="console">
-                        <a lay-href="home/homepage2.html">主页二</a>
-                    </dd>
-                </dl>
             </li>
             <li data-name="component" class="layui-nav-item">
                 <a href="javascript:;" lay-tips="组件" lay-direction="2">
@@ -321,7 +310,7 @@
                     <dd class="layui-nav-itemed">
                         <a href="javascript:;">系统设置</a>
                         <dl class="layui-nav-child">
-                            <dd><a lay-href="set/system/website.html">网站设置</a></dd>
+                            <dd><a lay-href="{{ route('admin.system.website') }}">网站设置</a></dd>
                             <dd><a lay-href="set/system/email.html">邮件服务</a></dd>
                         </dl>
                     </dd>

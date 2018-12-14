@@ -19,6 +19,8 @@ Route::group([
     Route::get('logout','LoginController@destroy')->name('admin.login.destroy');
     Route::get('index','IndexController@index')->name('admin.index.index');
     Route::get('home/console','HomeController@console')->name('admin.home.console');
+    //网站设置
+    Route::get('system/website','SystemController@website')->name('admin.system.website');
 });
 //登录页面
 Route::get('login','LoginController@index')->name('admin.login.index');
