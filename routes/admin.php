@@ -19,8 +19,12 @@ Route::group([
     Route::get('logout','LoginController@destroy')->name('admin.login.destroy');
     Route::get('index','IndexController@index')->name('admin.index.index');
     Route::get('home/console','HomeController@console')->name('admin.home.console');
-    //网站设置
-    Route::get('system/website','SystemController@website')->name('admin.system.website');
+    //网站配置
+    Route::prefix('system')->group(function(){
+        Route::get('website','SystemController@website')->name('admin.system.website');
+        Route::post('website','SystemController@store')->name('admin.system.store');
+    });
+
 });
 //登录页面
 Route::get('login','LoginController@index')->name('admin.login.index');
