@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{asset('layuiadmin/style/admin.css')}}" media="all">
     @yield('css')
 </head>
-<body class="layui-layout-body">
+<body>
     @yield('content')
 </body>
 <script src="{{ asset('layuiadmin/layui/layui.js') }}"></script>

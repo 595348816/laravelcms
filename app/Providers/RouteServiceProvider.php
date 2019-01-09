@@ -75,9 +75,12 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapAdminRoutes()
     {
-        Route::prefix('admin')
-            ->middleware('admin')
-            ->namespace('App\Http\Controllers\Admin')
-            ->group(base_path('routes/admin.php'));
+        Route::group([
+            'middleware'=>'admin',
+            'domain'=>'back.lethe.test',
+            'namespace'=>'App\Http\Controllers\Admin'
+        ],function ($router){
+            require base_path('routes/admin.php');
+        });
     }
 }

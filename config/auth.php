@@ -45,7 +45,7 @@ return [
             'provider' => 'users',
         ],
         'admin'=>[
-            'driver'=>'session',
+            'driver'=>'jwt',
             'provider'=>'system_users'
         ]
     ],

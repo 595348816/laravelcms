@@ -430,9 +430,9 @@ layui.define("view", function (e) {
         if (!e.parent().hasClass("layui-nav-item") || u.hasClass(C)) {
             var i = e.attr("lay-tips"),
                 t = e.attr("lay-offset"),
-                n = e.attr("lay-direction"),
+                tips = e.attr("lay-direction"),
                 l = layer.tips(i, this, {
-                    tips: n || 1,
+                    tips: tips || 1,
                     time: -1,
                     success: function (e, a) {
                         t && e.css("margin-left", t + "px")

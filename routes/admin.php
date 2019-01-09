@@ -1,33 +1,11 @@
 <?php
 use Illuminate\Support\Facades\Route;
-Route::get('/',function (){
-   return redirect('admin/login');
-});
-//获取验证码
-Route::get('/captcha/{config?}', function ($config='default') {
-    $captcha=app('captcha')->create($config,true);
-    $key=str_random('8');
-    cache()->tags('admin_captcha')->put($key,$captcha['key'],5);
-    return response()->json([
-        'key'=>$key,
-        'img'=>$captcha['img']
-    ]);
-});
-Route::group([
-    'middleware'=>'auth:admin'
-],function (){
-    Route::get('logout','LoginController@destroy')->name('admin.login.destroy');
-    Route::get('index','IndexController@index')->name('admin.index.index');
-    Route::get('home/console','HomeController@console')->name('admin.home.console');
-    //网站配置
-    Route::prefix('system')->group(function(){
-        Route::get('website','SystemController@website')->name('admin.system.website');
-        Route::post('website','SystemController@store')->name('admin.system.store');
-    });
-
-});
-//登录页面
-Route::get('login','LoginController@index')->name('admin.login.index');
-Route::post('login','LoginController@store')->name('admin.login.store');
+//登录
+Route::post('login','AuthorizationsController@store')->name('admin.author.store');
+Route::get('captchas','CaptchaSController@store')->name('admin.captchas.store');
+//获取菜单列表
+Route::get('menus','MenusController@index')->name('admin.menus.index');
+//用户信息
+Route::get('userInfo','SystemUserController@show')->name('admin.systemuser.show');
 
 

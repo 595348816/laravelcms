@@ -52,10 +52,10 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
-    public function unauthenticated($request,AuthenticationException $exception)
-    {
-        return $request->expectsJson()
-            ? response()->json(['message' => $exception->getMessage()], 401)
-            : redirect()->guest(route('admin.login.index'));
-    }
+//    public function unauthenticated($request,AuthenticationException $exception)
+//    {
+//        return $request->expectsJson()
+//            ? response()->json(['message' => $exception->getMessage()], 401)
+//            : redirect()->guest(route('admin.login.index'));
+//    }
 }
