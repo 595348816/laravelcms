@@ -15,6 +15,7 @@ return [
         'url'=>'javascript:;',
         'icon'=>'layui-icon layui-icon-set',
         'subMenus'=>[
+            ['name'=>'系统配置','url'=>'#/system/config'],
             ['name'=>'用户管理','url'=>'#/system/user'],
             ['name'=>'角色管理','url'=>'#/system/role'],
             ['name'=>'权限管理','url'=>'#/system/authorities'],

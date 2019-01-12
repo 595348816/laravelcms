@@ -47,6 +47,10 @@ return [
         'admin'=>[
             'driver'=>'jwt',
             'provider'=>'system_users'
+        ],
+        'visa_pay'=>[
+            'driver'=>'jwt',
+            'provider'=>'visa_user'
         ]
     ],
 
@@ -77,6 +81,10 @@ return [
         'system_users'=>[
             'driver'=>'eloquent',
             'model'=>\App\Models\SystemUser::class,
+        ],
+        'visa_user'=>[
+            'driver'=>'eloquent',
+            'model'=>\App\Models\VisaUser::class,
         ]
 
         // 'users' => [
