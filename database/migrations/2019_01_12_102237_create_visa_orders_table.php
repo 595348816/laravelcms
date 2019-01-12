@@ -15,12 +15,12 @@ class CreateVisaOrdersTable extends Migration
     {
         Schema::create('visa_orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->increments('user_id')->comment('商户id');
+            $table->unsignedInteger('user_id')->default(0)->comment('商户id');
             $table->enum('type',['alipay','qqpay','wxpay'])->comment('支付类型');
-            $table->unsignedInteger('money')->comment('支付金额');
-            $table->string('remark',100)->comment('支付备注');
+            $table->unsignedInteger('money')->default(0)->comment('支付金额');
+            $table->string('remark',100)->nullable()->comment('支付备注');
             $table->timestamp('pay_time')->comment('支付时间');
-            $table->unsignedTinyInteger('is_notice')->comment('是否通知');
+            $table->unsignedTinyInteger('is_notice')->default(0)->comment('是否通知');
             $table->timestamps();
         });
     }

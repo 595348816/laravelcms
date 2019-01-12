@@ -39,9 +39,9 @@ class VisaPayOrderRequest extends FormRequest
             'remark.required'=>'缺少支付备注',
             'money.required'=>'支付金额不正确',
             'money.numeric'=>'支付金额不正确',
-            'pay_time.required'=>'支付时间不正确',
+            'pay_time.required'=>'缺少支付时间',
             'pay_time.date'=>'支付时间不正确',
-            'pay_time.date_format'=>'支付时间不正确',
+            'pay_time.date_format'=>'时间格式不正确',
         ];
     }
 }

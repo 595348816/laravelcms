@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\VisaPayOrderRequest;
+use App\Models\VisaOrder;
 use App\Serializer\CustomSerializer;
+use App\Transformers\VisaOrderTransformers;
 use App\Transformers\VisaUserTransformers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,8 +47,11 @@ class VisaPayController extends Controller
         return $this->response->item(Auth::guard('visa_pay')->user(),new VisaUserTransformers());
     }
 
-    public function VisaPayOrder(VisaPayOrderRequest $request)
+    public function VisaPayOrder(VisaPayOrderRequest $request,VisaOrder $visaOrder)
     {
-        return $this->returnArray([]);
+        $visaOrder->fill($request->all());
+        $visaOrder->user_id=Auth::guard('visa_pay')->id();
+        $visaOrder->save();
+        return $this->response->item($visaOrder,new VisaOrderTransformers());
     }
 }
