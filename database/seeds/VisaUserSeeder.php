@@ -14,6 +14,6 @@ class VisaUserSeeder extends Seeder
         $visa_users=factory(\App\Models\VisaUser::class)
             ->times(5)
             ->make();
-        \App\Models\VisaUser::insert($visa_users->makeVisible(['password'])->toArray());
+        \App\Models\VisaUser::insert($visa_users->makeVisible(['password','appsecret'])->toArray());
     }
 }
