@@ -12,7 +12,7 @@ class VisaUserSeeder extends Seeder
     public function run()
     {
         $visa_users=factory(\App\Models\VisaUser::class)
-            ->times(1000)
+            ->times(5)
             ->make();
         \App\Models\VisaUser::insert($visa_users->makeVisible(['password'])->toArray());
     }
