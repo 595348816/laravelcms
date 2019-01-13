@@ -39,7 +39,7 @@ class VisaPayController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
 //            'expires_in' => \Auth::guard('visa_pay')->factory()->getTTL() * 60
-        ],201);
+        ],200);
     }
 
     public function me()
